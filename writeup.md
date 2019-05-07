@@ -14,7 +14,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[images_vis]: ./output_images/images_vis.jpg "Traffic Signs Visualization"
+[images_vis]: ./output_images/image_vis.jpg "Traffic Signs Visualization"
 [labels_vis]: ./output_images/label_frequency.jpg "Labels Frequency Histogram"
 
 [grayscale]: ./output_images/images_grayscale.jpg "Grayscaling"
@@ -27,11 +27,6 @@ The goals / steps of this project are the following:
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-### Writeup / README
-
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](https://github.com/dawn360/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ### Data Set Summary & Exploration
 
@@ -66,7 +61,7 @@ Here is an example of a traffic sign image before and after grayscaling.
 
 ![alt text][grayscale]
 
-As a last step, I normalized the image data i normalized the image data to improve performance during processing. 
+As a last step, I normalized the images by dividing each image by 255 to bring the mean to ~0
 
 I decided to generate additional data because:
 
@@ -92,6 +87,10 @@ The difference between the original data set and the augmented data set is the f
 In order to increase the model's accuracy over a few Epoch's i had to expand the training set with a lot of argumented data.
 So with a combinatoin of random scaling, brightness and warping i added +100k generated images to the training set.
 Size of Trining set after argumentation: 118857 
+
+Label Frequency after data argumentation and generation
+
+![alt text][balanced]
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
