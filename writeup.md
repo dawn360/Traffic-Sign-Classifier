@@ -19,9 +19,9 @@ The goals / steps of this project are the following:
 
 [grayscale]: ./output_images/images_grayscale.jpg "Grayscaling"
 [noisy]: ./output_images/image_noisy.jpg "Random Noise"
-[balanced]: ./output_images/balanced_labels.png "Balanced image data"
-[new]: ./output_images/new_images.png "New Images"
-[softmax]: ./output_images/softmax_prob.png "Softmax Probabiliy"
+[balanced]: ./output_images/balanced_labels.jpg "Balanced image data"
+[new]: ./output_images/new_images.jpg "New Images"
+[softmax]: ./output_images/softmax_prob.jpg "Softmax Probabiliy"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -200,7 +200,8 @@ Here are the results of the prediction:
 | Stop          		| Stop                 							|
 
 
-The model was able to correctly guess 5 of the 5 traffic signs, which gives an accuracy of 100%. 
+The model was able to correctly guess 5 of the 5 traffic signs, which gives an accuracy of 100%. This in comparison to the test accuracy
+is better.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
