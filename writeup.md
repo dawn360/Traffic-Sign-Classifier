@@ -47,12 +47,17 @@ Here is an exploratory visualization of the data set.
 
 ![alt text][images_vis]
 
-A bar chart showing how the frequecy of classes in the dataset
+Most of the images seem to have low brightness & contrast. The signs in the images also vary in sizes due to the fact that some
+of the images were taken at a closer shot while others were taken further away. Majority of the images have average quality with others
+appearing to be pixelated or blur.
+
+A bar chart showing how the frequency of classes in the dataset
 ![alt text][labels_vis]
+
 
 ### Design and Test a Model Architecture
 
-#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generate additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 As a first step, I decided to convert the images to grayscale because colors are not really useful for training the model. Traffic sign images could be taken with
 varying lighting conditions which will affect the color on the traffic sign. our model will be inaccurate trying to guess by color. So hence strip colors use grayscale
@@ -61,14 +66,15 @@ Here is an example of a traffic sign image before and after grayscaling.
 
 ![alt text][grayscale]
 
-As a last step, I normalized the images by dividing each image by 255 to bring the mean to ~0
+As the last step, I normalized the images by dividing each image by 255 to bring the mean to ~0
+The reason to normalize is that in the process of training the network, we're going to multiply (weights) and adding to (biases) these initial inputs in order to get activations that then backpropagate with the gradients to train the model. we'd like in this process for each feature to have a similar range so that gradients don't go out of control.
 
 I decided to generate additional data because:
 
-1. the image data distrubution in the test set was not evenly distributed as see in the `label visualization above`. so data was generated for classes with low frequency in the dataset
-2. i found that additional data also boosted the accuracy of the model so i generated atleast 1 noisy extra image per test image
+1. the image data distribution in the test set was not evenly distributed as seen in the `label visualization above`. so data was generated for classes with low frequency in the dataset
+2. I found that additional data also boosted the accuracy of the model so I generated at least 1 noisy extra image per test image
 
-To add more data to the the data set, I used the following techniques:
+To add more data to the data set, I used the following techniques:
 
 1. Random scaling
 2. Random warping
@@ -80,13 +86,13 @@ Here is an example of an original image and an augmented image:
 
 The difference between the original data set and the augmented data set is the following:
 
-1. The pespective of the images has slightly changed
+1. The perspective of the images has slightly changed
 2. The images have been scaled
-3. also some images have varing brightness
+3. also some images have varying brightness
 
-In order to increase the model's accuracy over a few Epoch's i had to expand the training set with a lot of argumented data.
-So with a combinatoin of random scaling, brightness and warping i added +100k generated images to the training set.
-Size of Trining set after argumentation: 118857 
+In order to increase the model's accuracy over a few Epoch's, I had to expand the training set with a lot of augmented data.
+So with a combination of random scaling, brightness, and warping, I added +100k generated images to the training set.
+Size of Training set after argumentation: 118857 
 
 Label Frequency after data argumentation and generation
 
@@ -95,6 +101,7 @@ Label Frequency after data argumentation and generation
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 My final model consisted of the following layers:
+
 
 |-Layer 1        		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -119,10 +126,23 @@ My final model consisted of the following layers:
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
-After experimenting with several hyperparameters combinations to train my model, i settled with the 
-following settings. EPOCHS = 20, BATCH_SIZE = 128 with a learning rate of 0.001 using the AdamOptimizer
+The Epoch is the number of times we CovNet goes over out training set. The goal is to minimize the epoch an unnecessarily high epoch 
+might result in overfitting.
+The batch size is the amount of training data that is sent through the network at a time. A higher number did not seem to make a 
+big difference so we use 128
+We specify the learning rate of 0.001, which tells the network how quickly to update the weights.
+We minimize the loss function using the Adaptive Moment Estimation (Adam) Algorithm. Adam is an optimization algorithm introduced by D. Kingma and J. Lei Ba in a 2015 paper named Adam: A Method for Stochastic Optimization. Adam algorithm computes adaptive learning rates for each parameter. In addition to storing an exponentially decaying average of past squared gradients like Adadelta and RMSprop algorithms, Adam also keeps an exponentially decaying average of past gradients mtmt, similar to momentum algorithm, which in turn produce better results.
+we will run minimize() function on the optimizer which use backpropagation to update the network and minimize our training loss to train the model.
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+Steps in training
+Before each epoch, we'll shuffle the training set.
+After each epoch, we measure the loss and accuracy of the validation set.
+And after training, we will save the model.
+A low accuracy on the training and validation sets imply underfitting. High accuracy on the training set but low accuracy on the validation set implies overfitting.
+
+#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and wherein the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well-known implementation or architecture. In this case, discuss why you think architecture is suitable for the current problem.
+
+We'll use Convolutional Neural Networks to classify the images in this dataset. The reason behind choosing ConvNets is that they are designed to recognize visual patterns directly from pixel images with minimal preprocessing. 
 
 # LeNet Architecture
 ![LeNet Architecture](lenet.png)
@@ -130,8 +150,22 @@ Source: Yan LeCun
 
 The LeNet architecture was first introduced by LeCun et al. in their 1998 paper, Gradient-Based Learning Applied to Document Recognition. The implementation of LeNet was used primarily for OCR and character recognition in documents.
 
-Using the LeNet Architecture with no modification we are able to achive a Validation accuracy of 95.1 and a test accuracy of 93.6
-After several tweeks to the hyperparamenters, we gained a higher accuracy using a higher epoch value with enough augumented image data
+For training, we mainly tweaked the EPOCH parameter and the training set size & argumentation type to arrive at our desired test accuracy.
+
+*Without data argumentation ( and grayscale and Normalization )*
+
+We tried Epoch 10 - 60 with 34799 images. Validation accuracy improves with a higher Epoch with a peak of 94.0 however model performs poorly on test data with a peak accuracy of 92.4
+
+*With data argumentation ( and grayscale and Normalization )*
+
+Epoch 10 - 60 with 68000 images. we can see that more data improves the validation accuracy with a peak accuracy of 95.3, but surprisingly the model fails to reach our target accuracy on the test dataset with an accuracy of 91.8
+
+*More augmented data...*
+
+We generate more argument data
+Epoch 10 - 60 with 118857 images. We found that the model was able gained higher accuracy earlier in the epoch then after epoch 30
+there was no further improvement in the validation accuracy so we retrain with and Epoch of 20 and finally we are able to achieve a Validation accuracy of 95.1 and a test accuracy of 93.6
+We found the size of the augmented data made a huge difference
 
 EPOCH 1 : Validation Accuracy = 0.851
 
