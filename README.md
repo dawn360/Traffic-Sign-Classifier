@@ -1,7 +1,6 @@
 # **Traffic Sign Recognition** 
 
-
-**Build a Traffic Sign Recognition Project**
+**Project Goals**
 
 The goals / steps of this project are the following:
 * Load the data set (see below for links to the project data set)
@@ -23,14 +22,7 @@ The goals / steps of this project are the following:
 [new]: ./output_images/new_images.jpg "New Images"
 [softmax]: ./output_images/softmax_prob.jpg "Softmax Probabiliy"
 
-## Rubric Points
-### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
-
----
-
 ### Data Set Summary & Exploration
-
-#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
 I used the numpy library to calculate summary statistics of the traffic
 signs data set:
@@ -41,7 +33,7 @@ signs data set:
 * The shape of a traffic sign image is `X_train[0].shape` (32, 32, 3)
 * The number of unique classes/labels in the data set is `len(np.unique(y_train))` 43
 
-#### 2. Include an exploratory visualization of the dataset.
+#### 2. visualization of the dataset.
 
 Here is an exploratory visualization of the data set. 
 
@@ -56,8 +48,6 @@ A bar chart showing how the frequency of classes in the dataset
 
 
 ### Design and Test a Model Architecture
-
-#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generate additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 As a first step, I decided to convert the images to grayscale because colors are not really useful for training the model. Traffic sign images could be taken with
 varying lighting conditions which will affect the color on the traffic sign. our model will be inaccurate trying to guess by color. So hence strip colors use grayscale
@@ -98,7 +88,7 @@ Label Frequency after data argumentation and generation
 
 ![alt text][balanced]
 
-#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+#### 2. Final model architecture
 
 My final model consisted of the following layers:
 
@@ -125,7 +115,8 @@ My final model consisted of the following layers:
  
 
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Model training.
+
 The Epoch is the number of times we CovNet goes over out training set. The goal is to minimize the epoch an unnecessarily high epoch 
 might result in overfitting.
 The batch size is the amount of training data that is sent through the network at a time. A higher number did not seem to make a 
@@ -140,7 +131,7 @@ After each epoch, we measure the loss and accuracy of the validation set.
 And after training, we will save the model.
 A low accuracy on the training and validation sets imply underfitting. High accuracy on the training set but low accuracy on the validation set implies overfitting.
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and wherein the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well-known implementation or architecture. In this case, discuss why you think architecture is suitable for the current problem.
+#### 4. Optimizations
 
 We'll use Convolutional Neural Networks to classify the images in this dataset. The reason behind choosing ConvNets is that they are designed to recognize visual patterns directly from pixel images with minimal preprocessing. 
 
@@ -211,16 +202,14 @@ Test Accuracy = 0.936
 
  
 
-### Test a Model on New Images
-
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+### Testing Model on New Images
 
 Here are five German traffic signs that I found on the web:
 
 ![alt text][new]
 Some of the images might be difficult to classify. eg. the 3rd image has low contrast.
 
-#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Predictions
 
 Here are the results of the prediction:
 
@@ -236,7 +225,6 @@ Here are the results of the prediction:
 The model was able to correctly guess 5 of the 5 traffic signs, which gives an accuracy of 100%. This in comparison to the test accuracy
 is better.
 
-#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 ![alt text][softmax]
 
